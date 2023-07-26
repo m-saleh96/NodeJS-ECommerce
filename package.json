@@ -2,9 +2,10 @@
   "name": "e-commerce",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon /src/app.js "
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/m-saleh96/NodeJS-ECommerce/issues"
   },
-  "homepage": "https://github.com/m-saleh96/NodeJS-ECommerce#readme"
+  "homepage": "https://github.com/m-saleh96/NodeJS-ECommerce#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
