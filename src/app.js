@@ -8,11 +8,15 @@ const bodyParser = require("body-parser");
 
 const cors = require('cors');
 
+const path = require('path')
+
 const productRoute = require("./routes/product");
 
 const app = express();
 
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, "../src/assets")));
 
 app.use(bodyParser.json());
 
