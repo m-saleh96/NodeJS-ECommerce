@@ -18,11 +18,12 @@ const {
     createProduct, 
     getProductById,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    paginationProduct
 } = require("../controllers/product");
 
 product.route("/product")
-    .get(getAllProduct)
+    .get(paginationProduct) // limit product per page
     .post(
         upload.single('image'), //multer middleware upload image
         addProductValidation, // validationProduct middleware
@@ -38,5 +39,8 @@ product.route("/product/:id")
         updateProductValidation, // validationProduct middleware
         updateProduct
     );
+
+product.route("/products")
+    .get(getAllProduct)  // all products in one page
 
 module.exports = product;

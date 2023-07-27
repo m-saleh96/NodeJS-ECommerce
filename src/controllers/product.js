@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const path = require('path');
 
-// to remove image if there is any error.
+// to remove product image.
 const deleteImage = (image) => {
     const imagePath = path.join(__dirname, '../assets/images', image);
     fs.rm(imagePath ,(err)=> err); 
@@ -46,6 +46,28 @@ const getAllProduct = async (req , res , next) => {
             });
 
     } catch (error) {
+        next(error);
+    }
+}
+
+const paginationProduct = async (req , res , next) => {
+    try {
+        const {page} = req.query;
+        const productPerPage = 12;
+        const totlaProduct = await Product.find().countDocuments();
+        const products = await Product.find()
+                                .skip((page-1) * productPerPage)
+                                .limit(productPerPage)
+        
+        res.status(200).json({
+            message: 'success',
+            data :products,
+            totlaProduct:totlaProduct,
+            totalPages : Math.ceil(totlaProduct / productPerPage),
+            curruntPage: Number(page),
+            productPerPage:productPerPage
+            });
+        } catch (error) {
         next(error);
     }
 }
@@ -93,6 +115,16 @@ const deleteProduct = async (req , res , next) => {
 
 const updateProduct = async (req , res , next) => {
     try {
+        const errors = validationResult(req);
+
+        if (errors.errors.length !== 0) {
+            const errorMessages = errors.array().map(error => error.msg);
+            if (req.file) {
+                deleteImage(req.file.filename);
+            }
+            return res.status(400).json({ errors: errorMessages });
+        }
+        
         if (req.file) {
             const image = req.file;
             if (!image.mimetype.startsWith("image")) {
@@ -105,16 +137,6 @@ const updateProduct = async (req , res , next) => {
                 deleteImage(req.file.filename);
                 throw new Error(`max image size is 500KB `);
             }
-        }
-
-        const errors = validationResult(req);
-
-        if (errors.errors.length !== 0) {
-            const errorMessages = errors.array().map(error => error.msg);
-            if (req.file) {
-                deleteImage(req.file.filename);
-            }
-            return res.status(400).json({ errors: errorMessages });
         }
 
         let newImage;
@@ -148,5 +170,6 @@ module.exports = {
     createProduct, 
     getProductById, 
     deleteProduct,
-    updateProduct
+    updateProduct,
+    paginationProduct
 };
