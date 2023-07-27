@@ -9,7 +9,7 @@ const path = require('path');
 // to remove image if there is any error.
 const deleteImage = (image) => {
     const imagePath = path.join(__dirname, '../assets/images', image);
-    fs.rm(imagePath ,(err)=> console.log(err)); 
+    fs.rm(imagePath ,(err)=> err); 
 }
 
 const createProduct = async (req , res , next) => {

@@ -6,7 +6,7 @@ const multer = require("multer");
 
 const { multerImageFilter, multerStoreProductImage } = require("../middlewares/multer");
 
-const {addProductValidation , updateProductValidation} = require('../models/product');
+const {addProductValidation , updateProductValidation} = require('../middlewares/validationProduct');
 
 const upload = multer({
     storage: multerStoreProductImage,
@@ -25,7 +25,7 @@ product.route("/product")
     .get(getAllProduct)
     .post(
         upload.single('image'), //multer middleware upload image
-        addProductValidation, // validation from model product
+        addProductValidation, // validationProduct middleware
         createProduct
     );
 
@@ -35,7 +35,7 @@ product.route("/product/:id")
     .delete(deleteProduct)
     .put(
         upload.single('image'), //multer middleware upload image,
-        updateProductValidation, // validation from model product
+        updateProductValidation, // validationProduct middleware
         updateProduct
     );
 
