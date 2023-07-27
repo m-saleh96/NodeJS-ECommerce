@@ -1,17 +1,37 @@
 const { Product } = require('../models/product');
 
+const { validationResult } = require('express-validator');
+
 const fs = require('fs');
 
 const path = require('path');
 
+// to remove image if there is any error.
+const deleteImage = (image) => {
+    const imagePath = path.join(__dirname, '../assets/images', image);
+    fs.rm(imagePath ,(err)=> console.log(err)); 
+}
+
 const createProduct = async (req , res , next) => {
     try {
+        const errors = validationResult(req);
+        
+        if (errors.errors.length !== 0) {
+            const errorMessages = errors.array().map(error => error.msg);
+            if (req.file) {
+                deleteImage(req.file.filename);
+            }
+            return res.status(400).json({ errors: errorMessages });
+        }
+
         const newProduct = await Product.create({
             ...req.body,
             image : req.file.filename
         })
         res.status(200).json(newProduct);
+
     } catch (error) {
+        deleteImage(req.file.filename);
         next(error);
     }
 }
@@ -33,6 +53,7 @@ const getAllProduct = async (req , res , next) => {
 const getProductById = async (req , res , next) => {
     try {
         const product = await Product.findById(req.params.id);
+
         if (!product) {
             return res.status(404).json({
                 status: "fail",
@@ -59,15 +80,10 @@ const deleteProduct = async (req , res , next) => {
                 message: "product not found",
             });
         } else {
-            const imagePath = path.join(__dirname, '../assets/images', product.image);
-
-            fs.rm(imagePath ,(err)=>{
-                if (!err) {
-                    res.status(200).json({
-                        message: 'deleted success'
-                    });
-                }
-            })
+            deleteImage(product.image);
+            res.status(200).json({
+                message: 'deleted success'
+            });
         }
 
     } catch (error) {
@@ -77,10 +93,35 @@ const deleteProduct = async (req , res , next) => {
 
 const updateProduct = async (req , res , next) => {
     try {
+        if (req.file) {
+            const image = req.file;
+            if (!image.mimetype.startsWith("image")) {
+                deleteImage(req.file.filename);
+                throw new Error("Invalid file type. Only image files are allowed.");
+            }
+        
+            const maxImageSize = 500 * 1024;
+            if (req.file.size > maxImageSize) {
+                deleteImage(req.file.filename);
+                throw new Error(`max image size is 500KB `);
+            }
+        }
+
+        const errors = validationResult(req);
+
+        if (errors.errors.length !== 0) {
+            const errorMessages = errors.array().map(error => error.msg);
+            if (req.file) {
+                deleteImage(req.file.filename);
+            }
+            return res.status(400).json({ errors: errorMessages });
+        }
+
         let newImage;
         if (req.file) {
             newImage = req.file.filename;
         }
+
         const product = await Product.findByIdAndUpdate(req.params.id , {...req.body , image:newImage});
         if (!product) {
             return res.status(404).json({
@@ -89,8 +130,7 @@ const updateProduct = async (req , res , next) => {
             });
         } else {
             if (req.file) {
-                const imagePath = path.join(__dirname, '../assets/images', product.image);
-                fs.rm(imagePath ,(err)=> err );
+                deleteImage(product.image);
             }
             res.status(200).json({
                 message: 'updated success'
