@@ -14,7 +14,7 @@ const {addAdmin} = require('./models/user');
 
 const productRoute = require("./routes/product");
 
-const userRoute = require("./routes/auth");
+const userRoute = require("./routes/auth/signup");
 
 const app = express();
 
