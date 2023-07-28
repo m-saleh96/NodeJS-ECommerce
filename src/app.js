@@ -14,7 +14,9 @@ const {addAdmin} = require('./models/user');
 
 const productRoute = require("./routes/product");
 
-const userRoute = require("./routes/auth/signup");
+const signUpUser = require("./routes/auth/signup");
+
+const loginUser = require("./routes/auth/login");
 
 const app = express();
 
@@ -26,14 +28,19 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// product routes
-app.use(productRoute); 
-
-// user routes
-app.use(userRoute); 
-
 // error middleware
 app.use(error);
+
+// product route
+app.use(productRoute); 
+
+// sigUp route
+app.use(signUpUser); 
+
+// Login route
+app.use(loginUser); 
+
+
 
 mongoose
     .connect('mongodb://0.0.0.0:27017/work')

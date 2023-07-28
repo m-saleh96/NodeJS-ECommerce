@@ -16,7 +16,7 @@ const createProduct = async (req , res , next) => {
     try {
         const errors = validationResult(req);
         
-        if (errors.errors.length !== 0) {
+        if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
             if (req.file) {
                 deleteImage(req.file.filename);
@@ -117,7 +117,7 @@ const updateProduct = async (req , res , next) => {
     try {
         const errors = validationResult(req);
 
-        if (errors.errors.length !== 0) {
+        if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
             if (req.file) {
                 deleteImage(req.file.filename);

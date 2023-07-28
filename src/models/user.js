@@ -45,7 +45,7 @@ const addAdmin = async () => {
             name: "Mohamed Saleh",
             email: "MohamedSaleh18896@gmail.com",
             phone: "01550191001",
-            password: "012345678",
+            password: "12345678",
             role: "admin",
         });
 
