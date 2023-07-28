@@ -21,15 +21,16 @@ const login = async (req , res , next) => {
         const accessToken = jwt.sign(
             { 
                 userId: user._id ,
-                email:user.email
+                email:user.email ,
+                role:user.role
             }, 
             process.env.JWT_SECRET,
             { 
                 expiresIn:'3h' 
             }
         );
-
-        const isAdmin = user.role ="admin" ? true:false ; 
+        
+        const isAdmin = user.role === "admin" ? true:false ; 
 
         res.status(200).json({
             message: "success",

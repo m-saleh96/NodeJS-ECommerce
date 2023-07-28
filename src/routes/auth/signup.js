@@ -4,7 +4,9 @@ const user = Router();
 
 const {
     createUser,
-    signUp
+    signUp ,
+    checkOTPforgetPassword,
+    resetPassword
 } = require('../../controllers/signup');
 
 const { userCreateValidationRules } = require('../../middlewares/validationUser');
@@ -20,5 +22,11 @@ user.route('/signup')
         userCreateValidationRules,
         signUp
     );
+
+user.route('/forgetpassword')
+    .post(checkOTPforgetPassword);
+
+user.route('/resetPassword')
+    .post(resetPassword);
 
 module.exports =  user;

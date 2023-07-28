@@ -13,6 +13,8 @@ const upload = multer({
     fileFilter: multerImageFilter,
 });
 
+const {authenticate , checkRole} = require('../middlewares/auth')
+
 const { 
     getAllProduct,
     createProduct, 
@@ -25,6 +27,8 @@ const {
 product.route("/product")
     .get(paginationProduct) // limit product per page
     .post(
+        authenticate,
+        checkRole("admin"),
         upload.single('image'), //multer middleware upload image
         addProductValidation, // validationProduct middleware
         createProduct
@@ -33,8 +37,14 @@ product.route("/product")
 
 product.route("/product/:id")
     .get(getProductById)
-    .delete(deleteProduct)
+    .delete(
+        authenticate,
+        checkRole("admin"),
+        deleteProduct
+    )
     .put(
+        authenticate,
+        checkRole("admin"),
         upload.single('image'), //multer middleware upload image,
         updateProductValidation, // validationProduct middleware
         updateProduct

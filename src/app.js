@@ -18,6 +18,8 @@ const signUpUser = require("./routes/auth/signup");
 
 const loginUser = require("./routes/auth/login");
 
+const userRoute = require("./routes/user");
+
 const app = express();
 
 app.use(cors());
@@ -39,6 +41,9 @@ app.use(signUpUser);
 
 // Login route
 app.use(loginUser); 
+
+// Login route
+app.use(userRoute); 
 
 
 

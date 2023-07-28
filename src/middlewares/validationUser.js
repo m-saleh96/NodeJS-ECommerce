@@ -14,9 +14,9 @@ const validateExistUser =  async (value, { req }) => {
 };
 
 const userCreateValidationRules = [
-    body("name").isString().withMessage("name must be a string"),
-    body("phone").isNumeric().matches(/^01\d{9}$/).withMessage("invalid phone"),
-    body("email").isEmail().withMessage("Invalid email address").custom(validateExistUser),
+    body("name").isString().trim().withMessage("name must be a string"),
+    body("phone").isNumeric().trim().matches(/^01\d{9}$/).withMessage("invalid phone"),
+    body("email").isEmail().trim().withMessage("Invalid email address").custom(validateExistUser),
     body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters."),
 ];
 
