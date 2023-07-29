@@ -20,6 +20,8 @@ const loginUser = require("./routes/auth/login");
 
 const userRoute = require("./routes/user");
 
+const orderRoute = require("./routes/order");
+
 const app = express();
 
 app.use(cors());
@@ -44,6 +46,9 @@ app.use(loginUser);
 
 // Login route
 app.use(userRoute); 
+
+// order route
+app.use(orderRoute); 
 
 
 
