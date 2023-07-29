@@ -11,13 +11,13 @@ const {
 
 const { userCreateValidationRules } = require('../../middlewares/validationUser');
 
-user.route('/checkemail')
+user.route('/signup')
     .post(
         userCreateValidationRules,
         createUser
     );
 
-user.route('/signup')
+user.route('/checkemail')
     .post(
         userCreateValidationRules,
         signUp

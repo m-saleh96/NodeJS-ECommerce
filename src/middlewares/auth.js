@@ -16,6 +16,7 @@ const authenticate = async (req , res , next)=>{
         req.userId = decodedToken.userId;
         req.role = decodedToken.role;
         req.email = decodedToken.email;
+        req.userName = decodedToken.name;
         next();
     } catch (error) {
         res.status(401).json({

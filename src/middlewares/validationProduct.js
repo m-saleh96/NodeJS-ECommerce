@@ -19,14 +19,14 @@ const validateImage = (value, { req }) => {
 };
 
 const addProductValidation = [
-    body('name').isString().trim().withMessage('name must be string'),
+    body('name').notEmpty().isString().trim().withMessage('name must be string'),
     body('price').isNumeric().trim().withMessage('price must be number'),
     body('description').isString().trim().withMessage('description must be string'),
     body('image').custom(validateImage)
 ];
 
 const updateProductValidation = [
-    body('name').optional().isString().trim().withMessage('name must be string'),
+    body('name').notEmpty().optional().isString().trim().withMessage('name must be string'),
     body('price').optional().isNumeric().trim().withMessage('price must be number'),
     body('description').optional().isString().trim().withMessage('description must be string'),
     body('image').optional().custom(validateImage)

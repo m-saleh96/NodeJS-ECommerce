@@ -36,14 +36,14 @@ const createProduct = async (req , res , next) => {
     }
 }
 
-const getAllProduct = async (req , res , next) => {
+const getAllProduct = async (req, res, next) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate('reviews');
 
         res.status(200).json({
-            message: 'success',
-            data :products
-            });
+        message: 'success',
+        data: products,
+        });
 
     } catch (error) {
         next(error);

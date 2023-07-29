@@ -41,13 +41,15 @@ const rating = async (req, res, next) => {
 
 const deleteRating = async (req, res, next) => {
     try {
-        const rating = await Rating.findByIdAndDelete(req.params.id);
-        if (!rating) {
+        const exist = await Rating.findOne({_id : req.params.id , userId:req.userId});
+        if (!exist) {
         return res.status(404).json({
             status: "fail",
             message: "Rating not Found",
         });
         }
+
+        await Rating.deleteOne({_id : req.params.id , userId:req.userId});
         res.status(200).json({
             status: "success"
         });
