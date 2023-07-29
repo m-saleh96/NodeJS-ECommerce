@@ -6,6 +6,12 @@ const orderSchema = new mongoose.Schema({
     phone: { type : String, required: true},
     address: { type : String, required: true},
     totalPrice: { type : String, required: true},
+    status: {
+        type: String,
+        enum: ["processing", "out for deliver", "delivered", "rejected"],
+        required: true,
+        default: "processing"
+    },
     subscription: { type : Object , required: true},
     orders: [
         {

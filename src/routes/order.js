@@ -8,7 +8,9 @@ const {
         checkoutOrder ,
         payment,
         getAllOrders,
-        getOlderByuserId
+        getOlderByuserId,
+        cancelOrder,
+        adminChangeStatus
 } =  require('../controllers/order');
 
 
@@ -35,6 +37,19 @@ order.route('/order')
     .get(
         authenticate,
         getOlderByuserId
+    );
+
+order.route('/order/cancel')
+    .post(
+        authenticate,
+        cancelOrder
+    );
+
+order.route('/order/changestatus')
+    .post(
+        authenticate,
+        checkRole("admin"),
+        adminChangeStatus
     );
 
 module.exports = order ;

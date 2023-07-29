@@ -10,7 +10,7 @@ const checkoutOrder = async(req , res ,next) =>{
         if (req.userId && req.body.orders) {
             const {order} = await TempOrder.create({ ...req.body, userId : req.userId });
             return  res.status(201).json({
-                message :"order created successfully" ,
+                message :"success now payment" ,
                 order :order
             });
 
@@ -28,7 +28,15 @@ const checkoutOrder = async(req , res ,next) =>{
 const payment = async(req , res ,next) =>{
     try {
         if (req.userId) {
+
+            const checkOrder = await TempOrder.findOne({ userId : req.userId });
+            if (!checkOrder) {
+                return res.status(404).json({
+                    message :"order not found" ,
+                });
+            }
             const {orders} = await TempOrder.findOne({ userId : req.userId }).populate("orders.productId");
+
             let totalPrice = 0;
             orders.forEach(elm =>{
                 totalPrice = totalPrice + (elm.quantity * elm.productId.price);
@@ -58,7 +66,7 @@ const payment = async(req , res ,next) =>{
             await TempOrder.deleteOne({userId : req.userId});
 
             return res.status(201).json({
-                message: "payment done successfully ",
+                message: "order created successfully",
                 data:{name:order.name , phone:order.phone , address:order.address , totalPrice:order.totalPrice}
             })
 
@@ -99,4 +107,51 @@ const getOlderByuserId = async(req , res ,next) =>{
     }
 }
 
-module.exports = {checkoutOrder , payment , getAllOrders , getOlderByuserId}
+const adminChangeStatus = async(req , res ,next) =>{
+    try {
+        const {orderId , status} = req.body;
+
+        if (status === "out for deliver" || status === "delivered" || status === "rejected") {
+            const order = await Order.findByIdAndUpdate(orderId , {status});
+            if (order) {
+                return  res.status(201).json({
+                message :"status updated successfully"
+            });
+            } else {
+                return  res.status(422).json({
+                    message :"order not found"
+                });
+            }
+        } else {
+            return  res.status(422).json({
+                message :"please check status value"
+            });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+const cancelOrder = async(req , res ,next) =>{
+    try {
+        const {orderId} = req.body;
+        const order= await Order.find({_id:orderId})
+        
+        if (order[0]?.userId.toString() === req.userId && order[0]?.status === "processing") {
+            await Order.deleteOne({_id:orderId , userId:req.userId});
+            return  res.status(201).json({
+                message :"canceled successfully"
+            });
+        } else {
+            return  res.status(422).json({
+                message :"failed not owner or it's out for deliver"
+            });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports = {checkoutOrder , payment , getAllOrders , getOlderByuserId , adminChangeStatus , cancelOrder}

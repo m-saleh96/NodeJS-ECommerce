@@ -22,14 +22,20 @@ const userRoute = require("./routes/user");
 
 const orderRoute = require("./routes/order");
 
+const notfoundRoute = require("./routes/notFound");
+
 const app = express();
 
+// cors for api 
 app.use(cors());
 
+// to access folder
 app.use(express.static(path.join(__dirname, "../src/assets")));
 
+// Parse JSON data from the request body
 app.use(bodyParser.json());
 
+// Parse URL-encoded data from the request body
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // error middleware
@@ -49,6 +55,9 @@ app.use(userRoute);
 
 // order route
 app.use(orderRoute); 
+
+// notfoundRoute route
+app.use(notfoundRoute); 
 
 
 
