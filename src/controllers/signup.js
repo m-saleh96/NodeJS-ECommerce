@@ -22,6 +22,11 @@ const createUser = async (req , res , next) => {
             return res.status(400).json({ errors: errorMessages });
         }
 
+        const exist = await CheckEmail.findOne({email:req.body.email});
+        if (exist) {
+            await CheckEmail.findOneAndDelete({email:req.body.email});
+        }
+
         const verificationCode = randomstring.generate({
             length: 6,
             charset: 'numeric', // Set it to 'alphanumeric' for alphanumeric codes

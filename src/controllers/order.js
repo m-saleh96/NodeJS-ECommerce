@@ -2,6 +2,8 @@ const TempOrder = require('../models/tempOrder');
 
 const Order = require('../models/order');
 
+const nodeMailer = require('nodemailer');
+
 const stripe = require('stripe')('sk_test_51NYyMgJaDmXk2hdyC9wIv1kARWohqBFqVT43VN0pavRxw8c5HiEGN1pOzUcPnCzXqVrvTTHAntSoDEYSIcq3iwFH00tZiyb2bh');
 
 const checkoutOrder = async(req , res ,next) =>{
@@ -10,6 +12,13 @@ const checkoutOrder = async(req , res ,next) =>{
             const order = await TempOrder.create({ ...req.body, userId : req.userId });
 
             const {orders} = await TempOrder.findOne({ userId : req.userId }).populate("orders.productId");
+
+            if (!orders[0].productId) {
+                await TempOrder.deleteMany({userId :req.userId })
+                return res.status(422).json({
+                    message:"product in order not found"
+                });
+            }
 
             let totalPrice = 0;
             orders.forEach(elm =>{
@@ -45,6 +54,13 @@ const payment = async(req , res ,next) =>{
             
             const {orders} = await TempOrder.findOne({ userId : req.userId }).populate("orders.productId");
 
+            if (!orders[0].productId) {
+                await TempOrder.deleteMany({userId :req.userId })
+                return res.status(422).json({
+                    message:"product in order not found"
+                });
+            }
+
             let totalPrice = 0;
 
             orders.forEach(elm =>{
@@ -74,8 +90,28 @@ const payment = async(req , res ,next) =>{
 
             await TempOrder.deleteOne({userId : req.userId});
 
+            const transporter = nodeMailer.createTransport({
+                service: 'gmail',
+                host:'smtp.gmail.com',
+                auth: {
+                    user: 'mohamedsaleh1881996@gmail.com', 
+                    pass: "xikfgsobpbgatloc", //Mm123456789
+                },
+            });
+    
+            const info = await transporter.sendMail({
+                from: 'MohamedSaleh1881996@gmail.com', // sender address
+                to: req.email, // list of receivers
+                subject: "Order request success", // Subject line
+                text: ` your order details
+                        Order ID : ${order._id}
+                        Address  : ${order.address}
+                        Total Price  : ${order.totalPrice}
+                        ` 
+            });
+
             return res.status(201).json({
-                message: "order created successfully",
+                message: "order created successfully please check your email",
                 data:{name:order.name , phone:order.phone , address:order.address , totalPrice:order.totalPrice}
             })
 
