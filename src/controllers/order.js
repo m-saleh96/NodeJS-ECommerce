@@ -2,16 +2,23 @@ const TempOrder = require('../models/tempOrder');
 
 const Order = require('../models/order');
 
-
 const stripe = require('stripe')('sk_test_51NYyMgJaDmXk2hdyC9wIv1kARWohqBFqVT43VN0pavRxw8c5HiEGN1pOzUcPnCzXqVrvTTHAntSoDEYSIcq3iwFH00tZiyb2bh');
 
 const checkoutOrder = async(req , res ,next) =>{
     try {
         if (req.userId && req.body.orders) {
-            const {order} = await TempOrder.create({ ...req.body, userId : req.userId });
+            const order = await TempOrder.create({ ...req.body, userId : req.userId });
+
+            const {orders} = await TempOrder.findOne({ userId : req.userId }).populate("orders.productId");
+
+            let totalPrice = 0;
+            orders.forEach(elm =>{
+                totalPrice = totalPrice + (elm.quantity * elm.productId.price);
+            })
+
             return  res.status(201).json({
-                message :"success now payment" ,
-                order :order
+                message :"success now payment",
+                totalPrice:totalPrice     
             });
 
         } else{
@@ -28,16 +35,18 @@ const checkoutOrder = async(req , res ,next) =>{
 const payment = async(req , res ,next) =>{
     try {
         if (req.userId) {
-
             const checkOrder = await TempOrder.findOne({ userId : req.userId });
+
             if (!checkOrder) {
                 return res.status(404).json({
                     message :"order not found" ,
                 });
             }
+            
             const {orders} = await TempOrder.findOne({ userId : req.userId }).populate("orders.productId");
 
             let totalPrice = 0;
+
             orders.forEach(elm =>{
                 totalPrice = totalPrice + (elm.quantity * elm.productId.price);
             })

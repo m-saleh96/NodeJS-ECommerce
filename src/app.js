@@ -22,6 +22,8 @@ const userRoute = require("./routes/user");
 
 const orderRoute = require("./routes/order");
 
+const ratingRoute = require("./routes/rating");
+
 const notfoundRoute = require("./routes/notFound");
 
 const app = express();
@@ -55,6 +57,9 @@ app.use(userRoute);
 
 // order route
 app.use(orderRoute); 
+
+// rating route
+app.use(ratingRoute); 
 
 // notfoundRoute route
 app.use(notfoundRoute); 
