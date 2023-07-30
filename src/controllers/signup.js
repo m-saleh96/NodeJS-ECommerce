@@ -119,11 +119,7 @@ const resetPassword = async (req , res , next) => {
     try {
         const userData = await ForgetPassword.findOne({email:req.body.email , otp:req.body.otp});
 
-        if (!userData) {
-            return res.status(422).json({
-                message : "email not exist"
-            })
-        }
+
 
         if (userData) {
             const { userId } = userData;
