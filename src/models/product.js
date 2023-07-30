@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema({
     name:{ type:String , required:true} , 
     price :{type:Number,required: true},
     description : {type: String },
-    image : { type:String , required:true},
+    images : [{ type:String , required:true}],
     categoryId: {type: mongoose.Types.ObjectId , ref :'Category' , required:true},
     averageRating: { type: Number, default: 0 },
     reviews: [

@@ -29,7 +29,7 @@ product.route("/product")
     .post(
         authenticate,
         checkRole("admin"),
-        upload.single('image'), //multer middleware upload image
+        upload.array('images' , 4), //multer middleware upload image
         addProductValidation, // validationProduct middleware
         createProduct
     );
@@ -45,7 +45,7 @@ product.route("/product/:id")
     .put(
         authenticate,
         checkRole("admin"),
-        upload.single('image'), //multer middleware upload image,
+        upload.array('images' , 4), //multer middleware upload image,
         updateProductValidation, // validationProduct middleware
         updateProduct
     );
