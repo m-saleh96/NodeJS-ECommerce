@@ -26,6 +26,7 @@ const createProduct = async (req , res , next) => {
 
         const newProduct = await Product.create({
             ...req.body,
+            categoryId:req.body.category,
             image : req.file.filename
         })
         res.status(200).json(newProduct);
@@ -57,7 +58,7 @@ const paginationProduct = async (req , res , next) => {
         const totlaProduct = await Product.find().countDocuments();
         const products = await Product.find()
                                 .skip((page-1) * productPerPage)
-                                .limit(productPerPage)
+                                .limit(productPerPage).populate('reviews');
         
         res.status(200).json({
             message: 'success',

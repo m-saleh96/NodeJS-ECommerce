@@ -1,5 +1,7 @@
 const { body } = require('express-validator');
 
+const {Category} = require('../models/Category');
+
 const validateImage = (value, { req }) => {
     if (!req.file) {
         throw new Error("image is required");
@@ -18,18 +20,31 @@ const validateImage = (value, { req }) => {
     return true;
 };
 
+const validateExistCategory =  async (value, { req }) => {
+
+    const category =  await Category.exists({ _id: value });
+
+    if (!category) {
+        throw new Error("category not exist");
+    }
+
+    return true;
+};
+
 const addProductValidation = [
     body('name').notEmpty().isString().trim().withMessage('name must be string'),
     body('price').isNumeric().trim().withMessage('price must be number'),
     body('description').isString().trim().withMessage('description must be string'),
-    body('image').custom(validateImage)
+    body('image').custom(validateImage),
+    body('category').custom(validateExistCategory)
 ];
 
 const updateProductValidation = [
     body('name').notEmpty().optional().isString().trim().withMessage('name must be string'),
     body('price').optional().isNumeric().trim().withMessage('price must be number'),
     body('description').optional().isString().trim().withMessage('description must be string'),
-    body('image').optional().custom(validateImage)
+    body('image').optional().custom(validateImage),
+    body('category').optional().custom(validateExistCategory)
 ];
 
 module.exports = { addProductValidation , updateProductValidation }

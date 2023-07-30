@@ -5,6 +5,7 @@ const productSchema = new mongoose.Schema({
     price :{type:Number,required: true},
     description : {type: String },
     image : { type:String , required:true},
+    categoryId: {type: mongoose.Types.ObjectId , ref :'Category' , required:true},
     averageRating: { type: Number, default: 0 },
     reviews: [
         {type: mongoose.Types.ObjectId , ref :'review'}

@@ -14,6 +14,8 @@ const {addAdmin} = require('./models/user');
 
 const productRoute = require("./routes/product");
 
+const categoryRoute = require("./routes/category");
+
 const signUpUser = require("./routes/auth/signup");
 
 const loginUser = require("./routes/auth/login");
@@ -47,6 +49,9 @@ app.use(error);
 
 // product route
 app.use(productRoute); 
+
+// product route
+app.use(categoryRoute); 
 
 // sigUp route
 app.use(signUpUser); 
