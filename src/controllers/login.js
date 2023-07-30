@@ -8,8 +8,6 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const JWT_SECRET = "msaleh01550191001";
-
 const login = async (req , res , next) => {
     try {
         const user = await User.findOne({email : req.body.email})
@@ -27,7 +25,7 @@ const login = async (req , res , next) => {
                 role:user.role,
                 name:user.name
             }, 
-            JWT_SECRET,
+            process.env.JWT_SECRET,
             { 
                 expiresIn:'3h' 
             }
