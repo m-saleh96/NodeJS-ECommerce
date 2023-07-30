@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const JWT_SECRET = "msaleh01550191001";
+
 const authenticate = async (req , res , next)=>{
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -12,7 +14,7 @@ const authenticate = async (req , res , next)=>{
     }
     try {
         const token = authHeader.split(" ")[1];
-        const decodedToken = jwt.verify(token , process.env.JWT_SECRET)
+        const decodedToken = jwt.verify(JWT_SECRET)
         req.userId = decodedToken.userId;
         req.role = decodedToken.role;
         req.email = decodedToken.email;
