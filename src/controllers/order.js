@@ -4,7 +4,7 @@ const Order = require('../models/order');
 
 const nodeMailer = require('nodemailer');
 
-const stripe = require('stripe')('sk_test_51NYyMgJaDmXk2hdyC9wIv1kARWohqBFqVT43VN0pavRxw8c5HiEGN1pOzUcPnCzXqVrvTTHAntSoDEYSIcq3iwFH00tZiyb2bh');
+const stripe = require('stripe')('sk_test_51NZQKlHsTIHjd4e44M45a0Tfc4s8Wg2h0JLHoxSMrFEaW7SrhikQYSuFOPTqsxGVdNJYyKaXPFwp6pj7tbtqngos00uG90O7XG');
 
 const checkoutOrder = async(req , res ,next) =>{
     try {
@@ -95,7 +95,7 @@ const payment = async(req , res ,next) =>{
                 host:'smtp.gmail.com',
                 auth: {
                     user: 'mohamedsaleh1881996@gmail.com', 
-                    pass: "xikfgsobpbgatloc", //Mm123456789
+                    pass: "xikfgsobpbgatloc", 
                 },
             });
     
@@ -103,7 +103,8 @@ const payment = async(req , res ,next) =>{
                 from: 'MohamedSaleh1881996@gmail.com', // sender address
                 to: req.email, // list of receivers
                 subject: "Order request success", // Subject line
-                text: ` your order details
+                text: ` 
+                        your order details
                         Order ID : ${order._id}
                         Address  : ${order.address}
                         Total Price  : ${order.totalPrice}

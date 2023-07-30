@@ -77,7 +77,7 @@ app.use(notfoundRoute);
 
 
 mongoose
-    .connect('mongodb://0.0.0.0:27017/work')
+    .connect('mongodb+srv://msaleh:01550191001@cluster0.ax77gzg.mongodb.net/ecommerce?retryWrites=true&w=majority')
     .then(()=>{
         console.log("DB Connected");
         addAdmin();
