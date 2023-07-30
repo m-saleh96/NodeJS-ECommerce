@@ -79,6 +79,12 @@ const checkOTPforgetPassword = async (req , res , next) =>{
     try {
         const user = await User.findOne({email : req.body.email});
 
+        if (!user) {
+            return res.status(422).json({
+                message : "email not exist"
+            })
+        }
+
         const verificationCode = randomstring.generate({
             length: 6,
             charset: 'numeric', // Set it to 'alphanumeric' for alphanumeric codes
@@ -112,6 +118,12 @@ const checkOTPforgetPassword = async (req , res , next) =>{
 const resetPassword = async (req , res , next) => {
     try {
         const userData = await ForgetPassword.findOne({email:req.body.email , otp:req.body.otp});
+
+        if (!userData) {
+            return res.status(422).json({
+                message : "email not exist"
+            })
+        }
 
         if (userData) {
             const { userId } = userData;
