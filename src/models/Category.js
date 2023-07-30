@@ -12,6 +12,12 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
+categorySchema.pre('findOneAndDelete', async function (next) {
+  const Product = mongoose.model('product');
+  await Product.deleteMany({ categoryId: this._conditions._id });
+  next();
+});
+
 const Category = mongoose.model("category", categorySchema);
 
 module.exports = { Category };
