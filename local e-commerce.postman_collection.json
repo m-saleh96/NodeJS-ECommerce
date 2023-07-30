@@ -379,7 +379,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGM1ZDc3ZjE1MmUxYmQ0ZDVhNTg0ZTkiLCJlbWFpbCI6Im1vaGFtZWRzYWxlaDE4ODk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJNb2hhbWVkIFNhbGVoIiwiaWF0IjoxNjkwNjk0OTEwLCJleHAiOjE2OTA3MDU3MTB9.jepUc5sqLk7BY1vR4KHE6_NGxhub8YG57sC0_G6IcLU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGM1ZmQ2MjBmOWVlNWEzNTE5NWU2OGUiLCJlbWFpbCI6Im1vaGFtZWRzYWxlaDE4ODk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJNb2hhbWVkIFNhbGVoIiwiaWF0IjoxNjkwNzUxNzMxLCJleHAiOjE2OTA3NjI1MzF9.695tJVqO2bJBpEBrkev0AbwIr7YQOVXggmoloCJe97I",
 									"type": "string"
 								}
 							]
@@ -422,19 +422,28 @@
 									"type": "text"
 								},
 								{
-									"key": "image",
+									"key": "images",
 									"type": "file",
-									"src": "/C:/Users/bh969/OneDrive/Desktop/download.jpeg"
+									"src": [
+										"/C:/Users/bh969/OneDrive/Desktop/Capture.PNG",
+										"/C:/Users/bh969/OneDrive/Desktop/sdg.jpeg"
+									]
 								},
 								{
 									"key": "category",
 									"value": "64c5fdb80f9ee5a35195e694",
 									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/bh969/OneDrive/Desktop/Capture.PNG",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/product",
+							"raw": "http://127.0.0.1:8080/product/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -444,7 +453,8 @@
 							],
 							"port": "8080",
 							"path": [
-								"product"
+								"product",
+								""
 							]
 						}
 					},
@@ -547,9 +557,17 @@
 									"type": "text"
 								},
 								{
-									"key": "image",
+									"key": "images",
 									"type": "file",
-									"src": "/C:/Users/bh969/OneDrive/Desktop/m-saleh96.github.io_noxe_home.pdf"
+									"src": [
+										"/C:/Users/bh969/OneDrive/Desktop/Capture.PNG",
+										"/C:/Users/bh969/OneDrive/Desktop/sdg.jpeg"
+									]
+								},
+								{
+									"key": "category",
+									"value": "64c367adfee32f855a4adc43",
+									"type": "text"
 								}
 							]
 						},

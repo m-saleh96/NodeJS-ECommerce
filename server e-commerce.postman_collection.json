@@ -363,7 +363,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGM1ZDc3ZjE1MmUxYmQ0ZDVhNTg0ZTkiLCJlbWFpbCI6Im1vaGFtZWRzYWxlaDE4ODk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJNb2hhbWVkIFNhbGVoIiwiaWF0IjoxNjkwNjk0MzU0LCJleHAiOjE2OTA3MDUxNTR9.KT-3CWytp4_sMlVolJ4d-zb5bacFHays_Tw3uhjcJU8",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGM1ZmQ2MjBmOWVlNWEzNTE5NWU2OGUiLCJlbWFpbCI6Im1vaGFtZWRzYWxlaDE4ODk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJNb2hhbWVkIFNhbGVoIiwiaWF0IjoxNjkwNzUzMzE2LCJleHAiOjE2OTA3NjQxMTZ9.8P2cdionnLNjfWCFaR9rFbR2ZmpWgrLc7t_yswxP4_8",
 									"type": "string"
 								}
 							]
@@ -406,13 +406,16 @@
 									"type": "text"
 								},
 								{
-									"key": "image",
+									"key": "images",
 									"type": "file",
-									"src": "/C:/Users/bh969/OneDrive/Desktop/download.jpeg"
+									"src": [
+										"/C:/Users/bh969/OneDrive/Desktop/Capture.PNG",
+										"/C:/Users/bh969/OneDrive/Desktop/sdg.jpeg"
+									]
 								},
 								{
 									"key": "category",
-									"value": "64c5f30b6e4e41b75764948c",
+									"value": "64c5fdb80f9ee5a35195e694",
 									"type": "text"
 								}
 							]
@@ -468,7 +471,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGMzMzhjYzIxNTQ2ZTk0Mjg3NDlhMWIiLCJlbWFpbCI6Im1vaGFtZWRzYWxlaDE4ODk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY5MDYxOTMyNSwiZXhwIjoxNjkwNjMwMTI1fQ.KbZTdOrQy3q1MEn7shdqN8Tzrw1ppJ_-clqoWnZVWAE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGM1ZmQ2MjBmOWVlNWEzNTE5NWU2OGUiLCJlbWFpbCI6Im1vaGFtZWRzYWxlaDE4ODk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJNb2hhbWVkIFNhbGVoIiwiaWF0IjoxNjkwNzUzMzE2LCJleHAiOjE2OTA3NjQxMTZ9.8P2cdionnLNjfWCFaR9rFbR2ZmpWgrLc7t_yswxP4_8",
 									"type": "string"
 								}
 							]
@@ -476,7 +479,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://m-saleh96.onrender.com/product/64c4dc091f1f47bfc90b41ab",
+							"raw": "https://m-saleh96.onrender.com/product/64c6d931a74ec775868cc68d",
 							"protocol": "https",
 							"host": [
 								"m-saleh96",
@@ -485,7 +488,7 @@
 							],
 							"path": [
 								"product",
-								"64c4dc091f1f47bfc90b41ab"
+								"64c6d931a74ec775868cc68d"
 							]
 						}
 					},
@@ -525,9 +528,18 @@
 									"type": "text"
 								},
 								{
-									"key": "image",
+									"key": "images",
 									"type": "file",
-									"src": "/C:/Users/bh969/OneDrive/Desktop/m-saleh96.github.io_noxe_home.pdf"
+									"src": [
+										"/C:/Users/bh969/OneDrive/Desktop/Capture.PNG",
+										"/C:/Users/bh969/OneDrive/Desktop/m-saleh96.github.io_noxe_home.png",
+										"/C:/Users/bh969/OneDrive/Desktop/sdg.jpeg"
+									]
+								},
+								{
+									"key": "category",
+									"value": "64c367adfee32f855a4adc43",
+									"type": "text"
 								}
 							]
 						},
