@@ -5,7 +5,7 @@ const multerStoreProductImage = multer.diskStorage({
         cb(null , 'src/assets/images');  // callback function that select folder to save images
     },
     filename:(req, file, cb)=>{  // callback function that generates a unique name for each
-        cb(null , Date.now()+"-"+file.originalname);
+        cb(null , Date.now()+"."+file.originalname.split(".")[1]);
     }
 });
 

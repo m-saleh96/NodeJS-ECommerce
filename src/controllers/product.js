@@ -169,8 +169,11 @@ const updateProduct = async (req , res , next) => {
             }
         }
         
+        existProduct = await Product.findById(req.params.id);
 
-        const product = await Product.findByIdAndUpdate(req.params.id , {...req.body , images:images});
+        let newImage = images.length === 0 ? existProduct.images : images
+
+        const product = await Product.findByIdAndUpdate(req.params.id , {...req.body , images:newImage});
         if (!product) {
             images.forEach(elm=>{
                 deleteImage(elm);
@@ -180,15 +183,19 @@ const updateProduct = async (req , res , next) => {
                 message: "product not found",
             });
         } else {
-            if (req.files) {
-                console.log(product.images);
-                product.images.forEach(elm=>{
-                    deleteImage(elm);
-                })
-                res.status(200).json({
+
+            if (images.length === 0) {
+                return res.status(200).json({
                     message: 'updated success'
                 });
             }
+            product.images.forEach(elm=>{
+                deleteImage(elm);
+            })
+            res.status(200).json({
+                message: 'updated success'
+            });
+            
         }
 
     } catch (error) {
