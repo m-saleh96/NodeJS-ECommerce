@@ -12,6 +12,12 @@ const randomstring = require('randomstring'); // to generate random string
 
 const { validationResult } = require('express-validator');
 
+const jwt = require('jsonwebtoken');
+
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const createUser = async (req , res , next) => {
     try {
         const errors = validationResult(req);
@@ -64,11 +70,35 @@ const signUp = async (req , res , next) => {
         if (userData) {
             const {name , email , phone , password} = userData;
             const user = await User.create({email , name , password , phone , role:"reader"});
+
             await CheckEmail.findByIdAndDelete(userData._id);
+
+            // generate token
+            const accessToken = jwt.sign(
+                { 
+                    userId: user._id ,
+                    email:user.email ,
+                    role:user.role,
+                    name:user.name
+                }, 
+                process.env.JWT_SECRET,
+                { 
+                    expiresIn:'3h' 
+                }
+            );
+            
+            const isAdmin = user.role === "admin" ? true:false ; 
+    
             return res.status(200).json({
                 message :"User created Successfully!",
+                data:{
+                    token : accessToken,
+                    isAdmin : isAdmin,
+                    userId : user._id
+                },
             });
         }
+
         res.status(422).json({message : "OTP invalid"});
     } catch (error) {
         next(error);
