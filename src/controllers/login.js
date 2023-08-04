@@ -38,7 +38,9 @@ const login = async (req , res , next) => {
             data:{
                 token : accessToken,
                 isAdmin : isAdmin,
-                userId : user._id
+                userId : user._id,
+                userName:user.name,
+                email:user.email
             },
         })
     } catch (error) {
