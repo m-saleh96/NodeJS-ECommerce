@@ -115,6 +115,11 @@ const checkOTPforgetPassword = async (req , res , next) =>{
             })
         }
 
+        const exist = await ForgetPassword.findOne({email:req.body.email});
+        if (exist) {
+            await ForgetPassword.findOneAndDelete({email:req.body.email});
+        }
+
         const verificationCode = randomstring.generate({
             length: 6,
             charset: 'numeric', // Set it to 'alphanumeric' for alphanumeric codes
