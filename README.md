@@ -1,8 +1,8 @@
 E-commerce application built using NodeJS, Express, and MongoDB.
 
-you can use it for your front it's deployed on server here => https://m-saleh96.onrender.com/product?page=1 <br>
-download collection here https://drive.google.com/drive/folders/11DYDazDUAYVTfsIF2s5Hq3lNq01HXr4f?usp=sharing<br>
-
+-you can use it for your front it's deployed on server here => https://m-saleh96.onrender.com/product?page=1 <br>
+-download collection here https://drive.google.com/drive/folders/11DYDazDUAYVTfsIF2s5Hq3lNq01HXr4f?usp=sharing<br>
+-image path after create https://m-saleh96.onrender.com/images/1690785118035.jpeg <br>
 Features :-<br>
 -Stripe Integration: Stripe has been integrated to handle payment processing, providing customers with a seamless checkout experience.<br>
 -Nodemailer: It sends OTP for sign-up or password reset.<br>
